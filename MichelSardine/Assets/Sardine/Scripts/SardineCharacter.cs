@@ -5,7 +5,7 @@ public class SardineCharacter : MonoBehaviour {
 	public Animator sardineAnimator;
 	Rigidbody sardineRigid;
 	public float turnSpeed=5f;
-	public float forwardSpeed=5f;
+	public float forwardSpeed=1f;
 
 	void Start () {
 		sardineAnimator = GetComponent<Animator> ();
@@ -24,12 +24,19 @@ public class SardineCharacter : MonoBehaviour {
 	}
 
 	public void MoveForward(){
-		sardineRigid.AddForce (transform.forward*forwardSpeed,ForceMode.Impulse);
+        transform.Translate(transform.right * forwardSpeed/10);
+		//sardineRigid.AddForce (transform.forward*forwardSpeed,ForceMode.Force);
 		sardineAnimator.SetTrigger ("MoveForward");
 	}
 
+    public void MoveBack()
+    {
+        transform.Translate(transform.right * -forwardSpeed / 10);
+        sardineAnimator.SetTrigger("MoveForward");
+    }
+
 	public void TurnUp(){
-		sardineRigid.AddTorque (-transform.right*turnSpeed,ForceMode.Impulse);
+		sardineRigid.AddForce (transform.up*turnSpeed, ForceMode.Impulse);
 	}
 
 	public void TurnDown(){
